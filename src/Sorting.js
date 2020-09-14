@@ -10,8 +10,10 @@ class Sorting extends Component{
             compare:{
                 i:null,
                 j:null
-            }
+            },
+            sorted:false
         }
+        this.sorted=false
     }
     changeArray=(e)=>{
         this.setState({
@@ -24,12 +26,14 @@ class Sorting extends Component{
     }
     randomize=()=>{
         this.setState({
-            arr:Array.from({length: this.state.length}, () => Math.floor(Math.random() * ((window.screen.height/4)-30+1))+30)
+            arr:Array.from({length: this.state.length}, () => Math.floor(Math.random() * ((window.screen.height/4)-30+1))+30),
+            sorted:false
         })
     }
     selectionSort=(e)=>{
         e.preventDefault()
-        let arr=this.state.arr
+        let arr=this.state.arr;
+        var sorted=false;
         for(let i=0;i<arr.length;i++){
             let max=i;
             setTimeout(()=>{
@@ -51,17 +55,8 @@ class Sorting extends Component{
                 [arr[i],arr[max]]=[arr[max],arr[i]]
                 
             },200*i);
-        }
-        this.setState({
-            compare:{
-                i:null,
-                j:null
-            }
-        })
-        this.setState({
-            arr:arr
-        })
-        
+        };
+        this.sorted=true;
     }
     render(){
         return(
@@ -90,7 +85,7 @@ class Sorting extends Component{
                         </li>
                         <li class="nav-item">
                         <input onChange={this.changeArray} type="range" min="2" max={Math.floor(window.screen.width/80)} defaultValue={Math.floor(window.screen.width/80)/2} id="changeSize" style={{background: "white",cursor: "pointer"}}/>
-                        <a class="nav-link">Randomize</a>
+                        <a class="nav-link">Increase Array Size</a>
                         </li>
                         </ul>
                         <form class="form-inline my-2 my-lg-0">
@@ -99,14 +94,18 @@ class Sorting extends Component{
                     </div>
                     </nav>
               <div style={{margin:"20px"}}>
-                    
-                    {this.state.arr.map((element,index) => 
-                        this.state.compare.i==index||this.state.compare.j==index?
+                    {this.sorted?
+                    (this.state.arr.map((element,index) =>
+                        <div className="bar" style={{height:element*3,width:"66px",marginLeft:"6px",backgroundColor:"rgba(169, 92, 232, 0.8)"}}>{element}</div>
+                        
+                    )):
+                    (this.state.arr.map((element,index) =>
+                        this.state.compare.i===index||this.state.compare.j===index?
                         <div className="bar" style={{height:element*3,width:"66px",marginLeft:"6px",backgroundColor:"#57a846"}}>{element}</div>
                         :
                         <div className="bar" style={{height:element*3,width:"66px",marginLeft:"6px",backgroundColor:"#5bc9b1"}}>{element}</div>
                         
-                    )}
+                    ))}
                 </div>
             </div>
         )
