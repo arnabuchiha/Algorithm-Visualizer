@@ -1,19 +1,19 @@
 .card1 {
     transition: all 150ms ease;
-    border: 1px solid #CCCCCC;
+    border: 1px solid rgb(91, 201, 177);
     border-radius: 5px;
-    
+    border-width: 0.5px;
 }
 .card1:focus,
 .card1:hover {
-  border-color: #55387b;
-  border-width: 2px;
+  border-color: #5bc9b1;
+  border-width: 4px;
   /* box-shadow: 3px 3px 3px #BFBFBF; */
 }
 .algo-name {
     font-size: 18px;
     font-weight: 700;
-    color:#55387b;
+    color:#005555;
 }
 .algo-image{
     height: 175px;
