@@ -1,0 +1,22 @@
+.card1 {
+    transition: all 150ms ease;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    
+}
+.card1:focus,
+.card1:hover {
+  border-color: #55387b;
+  border-width: 2px;
+  /* box-shadow: 3px 3px 3px #BFBFBF; */
+}
+.algo-name {
+    font-size: 18px;
+    font-weight: 700;
+    color:#55387b;
+}
+.algo-image{
+    height: 175px;
+    width: auto;
+    object-fit:cover; 
+}
