@@ -11,14 +11,17 @@ class Sorting extends Component{
                 i:null,
                 j:null
             },
-            sorted:false
+            sorted:[]
         }
-        this.sorted=false
     }
     changeArray=(e)=>{
         this.setState({
             arr:Array.from({length: e.target.value}, () => Math.floor(Math.random() * ((window.screen.height/4)-30+1))+30),
-            length:e.target.value
+            length:e.target.value,
+            sorted:[],
+            compare:{
+
+            }
         })
     }
     componentDidMount(){
@@ -27,16 +30,40 @@ class Sorting extends Component{
     randomize=()=>{
         this.setState({
             arr:Array.from({length: this.state.length}, () => Math.floor(Math.random() * ((window.screen.height/4)-30+1))+30),
-            sorted:false
+            sorted:[]
         })
     }
-    selectionSort=(e)=>{
-        e.preventDefault()
+    sleep=(milliseconds)=> {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+          if ((new Date().getTime() - start) > milliseconds){
+            break;
+          }
+        }
+      }
+    sortFunc=(e)=>{
+        e.preventDefault();
+        document.getElementById('error').style="display:none";
+        if(this.state.method=="Algorithms"){
+            document.getElementById('error').style="display:block";
+        }
+        else{
+            if(this.state.method=="Selection Sort")
+                this.selectionSort();
+            else if(this.state.method=="Insertion Sort")
+                this.insertionSort();
+        }
+    }
+    insertionSort=()=>{
+
+    }
+    selectionSort=()=>{
         let arr=this.state.arr;
-        var sorted=false;
+        this.sorted=false;
         for(let i=0;i<arr.length;i++){
             let max=i;
             setTimeout(()=>{
+                
                 for(let j=i+1;j<=arr.length;j++){
                     this.setState({
                         compare:{
@@ -44,19 +71,32 @@ class Sorting extends Component{
                             j:max
                         }
                     })
+                    console.log(this.state.compare)
                     if(arr[j]<arr[max]){
                         max=j;
                     }
-                    
                     this.setState({
                         arr:arr
                     })
+                    
+                    if(j==arr.length){
+                        
+                    }
                 }
-                [arr[i],arr[max]]=[arr[max],arr[i]]
                 
-            },200*i);
+                [arr[i],arr[max]]=[arr[max],arr[i]];
+                
+                this.setState({
+                    sorted:[...this.state.sorted,i]
+                })
+                
+                
+            },1000*i);
+            
         };
-        this.sorted=true;
+        
+        
+        
     }
     render(){
         return(
@@ -87,20 +127,21 @@ class Sorting extends Component{
                         <input onChange={this.changeArray} type="range" min="2" max={Math.floor(window.screen.width/80)} defaultValue={Math.floor(window.screen.width/80)/2} id="changeSize" style={{background: "white",cursor: "pointer"}}/>
                         <a class="nav-link">Increase Array Size</a>
                         </li>
+                        <div id="error" class="alert alert-danger" style={{marginLeft:"10px",display:"none"}} role="alert">
+                            Select an algorithm first!
+                        </div>
                         </ul>
                         <form class="form-inline my-2 my-lg-0">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.selectionSort}>Sort</button>
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.sortFunc}>Sort</button>
                         </form>
                     </div>
                     </nav>
               <div style={{margin:"20px"}}>
-                    {this.sorted?
+                    {
                     (this.state.arr.map((element,index) =>
-                        <div className="bar" style={{height:element*3,width:"66px",marginLeft:"6px",backgroundColor:"rgba(169, 92, 232, 0.8)"}}>{element}</div>
-                        
-                    )):
-                    (this.state.arr.map((element,index) =>
-                        this.state.compare.i===index||this.state.compare.j===index?
+                        index in this.state.sorted&&this.state.compare.i!=index&&this.state.compare.j!=index?
+                        <div className="bar" style={{height:element*3,width:"66px",marginLeft:"6px",backgroundColor:"#b979ec"}}>{element}</div>:
+                        this.state.compare.i==index||this.state.compare.j==index?
                         <div className="bar" style={{height:element*3,width:"66px",marginLeft:"6px",backgroundColor:"#57a846"}}>{element}</div>
                         :
                         <div className="bar" style={{height:element*3,width:"66px",marginLeft:"6px",backgroundColor:"#5bc9b1"}}>{element}</div>
