@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import {Link} from "react-router-dom";
-import "./styles/Home.css"
-import Logo from "./assets/heading_logo.png";
+import "../styles/Home.css"
+import Logo from "../assets/heading_logo.png";
 class Home extends Component{
     constructor(){
         super();

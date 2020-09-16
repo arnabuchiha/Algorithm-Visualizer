@@ -1,0 +1,27 @@
+td {
+    border: 1px solid #5bc9b1;
+    width: 25px;
+    height: 25px;
+}
+  tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+table{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+.node_start{
+    background-color: green;
+}
+.node_end{
+    background-color: red;
+}
+.node_wall{
+    background-color: black;
+    border: 1px solid black;
+}

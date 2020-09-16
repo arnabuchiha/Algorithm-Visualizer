@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import './styles/Sorting.css'
+import '../styles/Sorting.css'
 class Sorting extends Component{
     constructor(){
         super();
