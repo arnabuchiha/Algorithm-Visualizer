@@ -15,15 +15,17 @@ class Node extends Component{
             row,
             col,
             onMouseEnter,
-            onMouseUp
+            onMouseUp,
+            onMouseLeave
         }=this.props;
-        const cName=value==5?"start":value==10?"end":value==100?"wall":"";
+        const cName=value==5?"start":value==10?"end":value==1000?"wall":"";
         return(
             <td className={"node_"+cName} 
             id={`node-${row}-${col}`}
             onMouseDown={()=>onMouseDown(row,col)}
             onMouseEnter={()=>onMouseEnter(row,col)}
             onMouseUp={()=>onMouseUp()}
+            onMouseLeave={()=>onMouseLeave(row,col)}
             ></td>
         )
     }

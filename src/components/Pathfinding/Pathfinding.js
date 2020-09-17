@@ -16,7 +16,10 @@ class Pathfinding extends Component{
         this.state={
             method:"Algorithms",
             grid:[],
-            mouseClicked:false
+            mouseClicked:false,
+            mainClicked:"",
+            start_node:null,
+            end_node:null
 
         }
     }
@@ -30,7 +33,7 @@ class Pathfinding extends Component{
         for(let i=0;i<row_size;i++){
             let row=[];
             for(let j=0;j<col_size;j++){
-                row.push(0);
+                row.push(1);
             }
             arr.push(row);
         }
@@ -40,8 +43,11 @@ class Pathfinding extends Component{
         let end_y=Math.floor(Math.random()*col_size);
         arr[start_x][start_y]=5;
         arr[end_x][end_y]=10;
+
         this.setState({
-            grid:arr
+            grid:arr,
+            start_node:[start_x,start_y],
+            end_node:[end_x,end_y]
         })
         
     }
@@ -53,9 +59,19 @@ class Pathfinding extends Component{
     }
     handleMouseDown=(row,col)=>{
         let arr=this.state.grid;
-        if(arr[row][col]!=100&&arr[row][col]!=5&&arr[row][col]!=10)
-            arr[row][col]=100;
-        else if(arr[row][col]==100){
+        if(arr[row][col]==5){
+            this.setState({
+                mainClicked:"start"
+            })
+        }
+        else if(arr[row][col]==10){
+            this.setState({
+                mainClicked:"end"
+            })
+        }
+        if(arr[row][col]!=1000&&arr[row][col]!=5&&arr[row][col]!=10)
+            arr[row][col]=1000;
+        else if(arr[row][col]==1000){
             arr[row][col]=0;
         }
         this.setState({
@@ -67,9 +83,21 @@ class Pathfinding extends Component{
         
         if(this.state.mouseClicked){
             let arr=this.state.grid;
-            if(arr[row][col]!=100&&arr[row][col]!=5&&arr[row][col]!=10)
-                arr[row][col]=100;
-            else if(arr[row][col]==100){
+            if(this.state.mainClicked=="start"){
+                arr[row][col]=5;
+                this.setState({
+                    start_node:[row,col]
+                })
+            }
+            else if(this.state.mainClicked=="end"){
+                arr[row][col]=10;
+                this.setState({
+                    end_node:[row,col]
+                })
+            }
+            else if(arr[row][col]!=1000&&arr[row][col]!=5&&arr[row][col]!=10)
+                arr[row][col]=1000;
+            else if(arr[row][col]==1000){
                 arr[row][col]=0;
             }
             this.setState({
@@ -79,10 +107,44 @@ class Pathfinding extends Component{
         }
         
     }
+    handleMouseLeave=(row,col)=>{
+        let arr=this.state.grid;
+        if(this.state.mainClicked!=""){
+            arr[row][col]=0;
+
+        }
+        this.setState({
+            grid:arr
+        })
+    }
     handleMouseUp=()=>{
         this.setState({
-            mouseClicked:false
+            mouseClicked:false,
+            mainClicked:""
         })
+    }
+    dijkshtra=()=>{
+        let set1=new Set();
+        set1.add(4);
+        set1.add(2);
+        set1.add(9);
+        console.log(set1);
+        let arr=this.state.grid;
+        let distance=new Array();
+        let start_node=this.state.start_node;
+        let end_node=this.state.end_node;
+        for(let i=0;i<arr.length;i++){
+            let row_dist=[]
+            for(let j=0;j<arr[0].length;j++){
+                row_dist.push(Infinity);
+            }
+            distance.push(row_dist);
+        }
+        distance[start_node[0]][start_node[1]]=0;
+        // console.log(distance)
+        let set=new Set();
+        // set.add({start_node[0],[start_node[1],})
+
     }
     render(){
         return(
@@ -107,14 +169,14 @@ class Pathfinding extends Component{
                             </div>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="#">Clear <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="#" onClick={()=>this.makeGrid()}>Clear <span class="sr-only">(current)</span></a>
                         </li>
                         <div id="error" class="alert alert-danger" style={{marginLeft:"10px",display:"none"}} role="alert">
                             Select an algorithm first!
                         </div>
                         </ul>
                         <form class="form-inline my-2 my-lg-0">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.sortFunc}>Find Path</button>
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.dijkshtra}>Find Path</button>
                         </form>
                     </div>
                     </nav>
@@ -134,6 +196,7 @@ class Pathfinding extends Component{
                                                 onMouseDown={(row,col)=>this.handleMouseDown(row,col)}
                                                 onMouseEnter={(row,col)=>this.handleMouseEnter(row,col)}
                                                 onMouseUp={()=>this.handleMouseUp()}
+                                                onMouseLeave={(row,col)=>this.handleMouseLeave(row,col)}
                                                 />
                                             )
                                         })

@@ -17,11 +17,66 @@ table{
 }
 .node_start{
     background-color: green;
+    animation-name: start_node;
+    animation-duration: 1.5s; 
+    animation-timing-function: ease-out; 
+    animation-delay: 0s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-fill-mode: none;
+    animation-play-state: running; 
 }
+@keyframes start_node {
+    0% {
+      transform: scale(.3);
+      background-color: orange;
+      border-radius: 100%;
+    }
+    50% {
+      background-color: lightgreen;
+    }
+    100% {
+      transform: scale(1.2);
+      background-color: green;
+    }
+  }
+  @keyframes end_node {
+    0% {
+      transform: scale(.3);
+      background-color: orange;
+      border-radius: 100%;
+    }
+    50% {
+      background-color: red;
+    }
+    100% {
+      transform: scale(1.2);
+      background-color: red;
+    }
+  }
 .node_end{
     background-color: red;
+    animation-name: end_node;
+    animation-duration: 1.5s; 
+    animation-timing-function: ease-out; 
+    animation-delay: 0s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-fill-mode: none;
+    animation-play-state: running; 
 }
 .node_wall{
+    animation: pulse 1.5s 1;
     background-color: black;
     border: 1px solid black;
+}
+
+@keyframes pulse{
+    0%{
+        background-color: gray;
+
+    }
+    100%{
+        background-color: black;
+    }
 }
