@@ -214,24 +214,58 @@ class Pathfinding extends Component{
             arr[visited_nodes[i].row][visited_nodes[i].col].isVisited=true;
         }
         let flag=0;
-        for(let i=0;i<visited_nodes.length;i++){
-            
-            setTimeout(()=>{
-                arr[visited_nodes[i].row][visited_nodes[i].col].isVisited=true;
-                this.setState({
-                    grid:arr
-                })
-                if(i==visited_nodes.length-1)flag=1;
-            },10*i);
+        const animate=async ()=>{
+        let i=1;
+        let j=1;
+        const animateVisited=async()=>{
+            if(i==visited_nodes.length){
+                requestAnimationFrame(animatePath);
+                return;
+            }
+            arr[visited_nodes[i].row][visited_nodes[i].col].isVisited=true;
+            // this.setState({
+            //     grid:arr
+            // })
+            document.getElementById(`node-${visited_nodes[i].row}-${visited_nodes[i].col}`).className="node_visited";
+            ++i;
+            requestAnimationFrame(animateVisited);
+            // setTimeout(() => {
+                
+            //   }, 1000 / 1000);
         }
-        for(let i=0;i<shortestPath.length;i++){
-            setTimeout(()=>{
-            arr[shortestPath[i].row][shortestPath[i].col].isShortestPath=true;
-            this.setState({
-                grid:arr
-            })
-            },50*i);
+        
+        const animatePath=()=>{
+            if(j==shortestPath.length-1)return;
+            arr[shortestPath[j].row][shortestPath[j].col].isShortestPath=true;
+            document.getElementById(`node-${shortestPath[j].row}-${shortestPath[j].col}`).className="node_path";
+            ++j;
+            requestAnimationFrame(animatePath);
         }
+        await requestAnimationFrame(animateVisited);
+    }
+    animate().then(()=>{
+        this.setState({
+            grid:arr
+        })
+    });
+        // for(let i=0;i<visited_nodes.length;i++){
+
+        //     setTimeout(()=>{
+        //         arr[visited_nodes[i].row][visited_nodes[i].col].isVisited=true;
+        //         this.setState({
+        //             grid:arr
+        //         })
+        //         if(i==visited_nodes.length-1)flag=1;
+        //     },i);
+        // }
+        // for(let i=0;i<shortestPath.length;i++){
+        //     setTimeout(()=>{
+        //     arr[shortestPath[i].row][shortestPath[i].col].isShortestPath=true;
+        //     this.setState({
+        //         grid:arr
+        //     })
+        //     },50*i);
+        // }
     }
     
     getShortestPath=(node)=>{
@@ -244,10 +278,21 @@ class Pathfinding extends Component{
         }
         return shortestPath;
     }
+    toggleChat=()=>{
+        var chatBody = document.querySelector(".chat-body");
+        var chatBtn = document.querySelector(".chat-btn");
+        if(chatBtn.style.display=='none') {
+            chatBody.style.display = 'none';
+            chatBtn.style.display = 'block';
+        } else {
+            chatBody.style.display = 'block';
+            chatBtn.style.display = 'none';
+            }
+    }
     render(){
         return(
             <div>
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style={{color:"white"}}>
                     <a class="navbar-brand" href="#">Pathfinding Visualizer</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -309,7 +354,13 @@ class Pathfinding extends Component{
                         })
                         }
                     </table>
-              
+                    <div class="chat-container">
+                    <button class="chat-btn" onclick={this.toggleChat}>✉︎</button>
+                    <div class="chat-body">
+                        <div class="chat-wrap">
+                    </div>
+                    </div>
+                    </div>
             </div>
         )
     }

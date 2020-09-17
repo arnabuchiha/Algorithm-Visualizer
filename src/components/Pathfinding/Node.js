@@ -31,6 +31,9 @@ class Node extends Component{
             onMouseEnter={()=>onMouseEnter(row,col)}
             onMouseUp={()=>onMouseUp()}
             onMouseLeave={()=>onMouseLeave(row,col)}
+            // onTouchStart={()=>onMouseDown(row,col)}
+            // onTouchEnd={()=>onMouseLeave(row,col)}
+            // onTouchMove={()=>onMouseEnter(row,col)}
             ></td>
         )
     }

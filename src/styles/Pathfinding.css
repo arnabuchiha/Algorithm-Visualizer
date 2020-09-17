@@ -84,9 +84,9 @@ table{
 .node_visited{
   background-color: lightseagreen;
   animation-name: visited;
-  animation-duration: 1.5s;
+  animation-duration: 0.5s;
   animation-timing-function: ease-out;
-  animation-delay: 0;
+  animation-delay: 1;
   animation-direction: alternate;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
@@ -115,4 +115,54 @@ table{
 }
 .node_path{
   background-color: yellow;
+}
+
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.chat-btn {
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  font-size: 2rem;
+  color: #fff;
+  background-color: #343A40;
+  border: 1px solid #343A40;
+  border-radius: 25px 25px;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  cursor: pointer;
+  animation: shadow-pulse 1s infinite;
+  display: block;
+}
+@keyframes shadow-pulse {
+  0% {
+    box-shadow: 0 0 0 0 #343A40;
+  }
+  100% {
+    box-shadow: 0 0 0 20px rgba(130, 90, 164, 0);
+  }
+}
+.chat-body {
+  height: auto;
+  min-height: 300px;
+  min-width: 300px;
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  border: 3px solid #343A40;
+  border-radius: 14px;
+  display: block;
+  transition: block 1s ease-out;
+}
+.chat-body .chat-head {
+  background: #343A40;
+  padding: 10px;
+  height: 20px;
+  color: rgba(255, 255, 255, 1);
+  font-family: verdana;
 }
