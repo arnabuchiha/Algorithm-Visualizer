@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import "../../styles/Pathfinding.css";
-import Card from "@material-ui/core/Card";
-import { withStyles } from "@material-ui/core/styles";
 import Node from "./Node";
-const GridContainer = withStyles({
-    root: {
-      width: "100%",
-      padding: "1vw",
-      marginRight: "1vw"
-    }
-  })(Card);
+import PriorityQueue from "js-priority-queue";
+import Dijkstra from "./algorithms/Dijkstra";
+function node(row,col,dis){
+    return({
+        row,
+        col,
+        dis
+    })
+}
+
 class Pathfinding extends Component{
     constructor(){
         super();
@@ -33,7 +34,15 @@ class Pathfinding extends Component{
         for(let i=0;i<row_size;i++){
             let row=[];
             for(let j=0;j<col_size;j++){
-                row.push(1);
+                row.push({
+                    value:1,
+                    row:i,
+                    col:j,
+                    isVisited:false,
+                    isShortestPath:false,
+                    isWall:false,
+                    isShortestPath:false
+                });
             }
             arr.push(row);
         }
@@ -41,8 +50,9 @@ class Pathfinding extends Component{
         let start_y=Math.floor(Math.random()*col_size);
         let end_x=Math.floor(Math.random()*row_size);
         let end_y=Math.floor(Math.random()*col_size);
-        arr[start_x][start_y]=5;
-        arr[end_x][end_y]=10;
+        arr[start_x][start_y].isStart=true;
+        console.log(arr[start_x][start_y].isWall)
+        arr[end_x][end_y].isEnd=true;
 
         this.setState({
             grid:arr,
@@ -59,20 +69,20 @@ class Pathfinding extends Component{
     }
     handleMouseDown=(row,col)=>{
         let arr=this.state.grid;
-        if(arr[row][col]==5){
+        if(arr[row][col].isStart){
             this.setState({
                 mainClicked:"start"
             })
         }
-        else if(arr[row][col]==10){
+        else if(arr[row][col].isEnd){
             this.setState({
                 mainClicked:"end"
             })
         }
-        if(arr[row][col]!=1000&&arr[row][col]!=5&&arr[row][col]!=10)
-            arr[row][col]=1000;
-        else if(arr[row][col]==1000){
-            arr[row][col]=0;
+        if(!arr[row][col].isWall&&!arr[row][col].isStart&&!arr[row][col].isEnd)
+            arr[row][col].isWall=true;
+        else if(arr[row][col].isWall){
+            arr[row][col].isWall=false;
         }
         this.setState({
             grid:arr,
@@ -84,21 +94,21 @@ class Pathfinding extends Component{
         if(this.state.mouseClicked){
             let arr=this.state.grid;
             if(this.state.mainClicked=="start"){
-                arr[row][col]=5;
+                arr[row][col].isStart=true;
                 this.setState({
                     start_node:[row,col]
                 })
             }
             else if(this.state.mainClicked=="end"){
-                arr[row][col]=10;
+                arr[row][col].isEnd=true;
                 this.setState({
                     end_node:[row,col]
                 })
             }
-            else if(arr[row][col]!=1000&&arr[row][col]!=5&&arr[row][col]!=10)
-                arr[row][col]=1000;
-            else if(arr[row][col]==1000){
-                arr[row][col]=0;
+            else if(!arr[row][col].isWall&&!arr[row][col].isStart&&!arr[row][col].isEnd)
+                arr[row][col].isWall=true;
+            else if(arr[row][col].isWall){
+                arr[row][col].isWall=false;
             }
             this.setState({
                 grid:arr,
@@ -110,12 +120,13 @@ class Pathfinding extends Component{
     handleMouseLeave=(row,col)=>{
         let arr=this.state.grid;
         if(this.state.mainClicked!=""){
-            arr[row][col]=0;
-
+            arr[row][col].isStart=0;
+            arr[row][col].isEnd=0;
+            this.setState({
+                grid:arr
+            })
         }
-        this.setState({
-            grid:arr
-        })
+        
     }
     handleMouseUp=()=>{
         this.setState({
@@ -123,28 +134,115 @@ class Pathfinding extends Component{
             mainClicked:""
         })
     }
-    dijkshtra=()=>{
-        let set1=new Set();
-        set1.add(4);
-        set1.add(2);
-        set1.add(9);
-        console.log(set1);
+    isInsideGrid=(i,j) =>
+    { 
+        return (i >= 0 && i < this.state.grid.length && j >= 0 && j < this.state.grid[0].length); 
+    } 
+    findNode=(x)=>{
+        return x.row
+    }
+    dijkshtra=(e)=>{
+        e.preventDefault();
+        console.log(Dijkstra(this.state.grid,this.state.start_node,this.state.end_node))
         let arr=this.state.grid;
-        let distance=new Array();
+        let visited_nodes=[];
+        let shortestPath=[];
         let start_node=this.state.start_node;
         let end_node=this.state.end_node;
-        for(let i=0;i<arr.length;i++){
-            let row_dist=[]
-            for(let j=0;j<arr[0].length;j++){
-                row_dist.push(Infinity);
+        let pq=new PriorityQueue({
+            comparator:function(a,b){
+                return a.distance-b.distance;
             }
-            distance.push(row_dist);
+        });
+        for(let i=0;i<arr.length;i++){
+            for(let j=0;j<arr[0].length;j++){
+                arr[i][j].distance=Infinity;
+                arr[i][j].prevNode=null;
+                arr[i][j].isVisited=false;
+                arr[i][j].isShortestPath=false;
+            }
         }
-        distance[start_node[0]][start_node[1]]=0;
-        // console.log(distance)
-        let set=new Set();
-        // set.add({start_node[0],[start_node[1],})
-
+        arr[start_node[0]][start_node[1]].distance=0;
+        pq.queue(arr[start_node[0]][start_node[1]]);
+        let dx = [1, 0, -1, 0]; 
+        let dy = [0, 1, 0, -1]; 
+        // console.log(set.toArray())
+        let limit=0;
+        
+        while(pq.length){
+            let cell=pq.dequeue();
+            if(arr[cell.row][cell.col].isVisited)continue;
+            arr[cell.row][cell.col].isVisited=true;
+            visited_nodes.push(cell);
+            let flag=0;
+            for(let i=0;i<4;i++){
+                let x=cell.row+dx[i];
+                let y=cell.col+dy[i];
+                if(!this.isInsideGrid(x,y))continue;
+                if(!arr[x][y].isVisited&&(!arr[x][y].isWall||(x==end_node[0]&&y==end_node[1]))){
+                    if(x===end_node[0]&&y===end_node[1]){
+                        arr[x][y].isVisited=true;
+                        arr[x][y].prevNode=arr[cell.row][cell.col];
+                        let node=arr[x][y];
+                        while (node !== null) {
+                            shortestPath.unshift(node);
+                            node = node.prevNode;
+                            if (node){ node.isShortestPath = true;
+                                node.isVisited=false;
+                            }
+                        }
+                        console.log(shortestPath);
+                        flag=1;
+                        break;
+                    }
+                    const dist = Math.abs(dx[i]) === 1 && Math.abs(dy[i]) === 1 ? 1.4 : 1;
+                    if (cell.distance + dist < arr[x][y].distance) {
+                        arr[x][y].prevNode = cell;
+                        arr[x][y].distance = cell.distance + dist;
+                    }
+                    pq.queue(arr[x][y]);
+                }
+                
+            }
+            if(flag==1)break;
+        }
+        for(let i=0;i<visited_nodes.length;i++){
+            arr[visited_nodes[i].row][visited_nodes[i].col].isVisited=false
+        }
+        for(let i=0;i<shortestPath.length;i++){
+            arr[shortestPath[i].row][shortestPath[i].col].isShortestPath=false;
+            arr[visited_nodes[i].row][visited_nodes[i].col].isVisited=true;
+        }
+        let flag=0;
+        for(let i=0;i<visited_nodes.length;i++){
+            
+            setTimeout(()=>{
+                arr[visited_nodes[i].row][visited_nodes[i].col].isVisited=true;
+                this.setState({
+                    grid:arr
+                })
+                if(i==visited_nodes.length-1)flag=1;
+            },10*i);
+        }
+        for(let i=0;i<shortestPath.length;i++){
+            setTimeout(()=>{
+            arr[shortestPath[i].row][shortestPath[i].col].isShortestPath=true;
+            this.setState({
+                grid:arr
+            })
+            },50*i);
+        }
+    }
+    
+    getShortestPath=(node)=>{
+        console.log(node)
+        let shortestPath = [];
+        while (node !== null) {
+            shortestPath.unshift(node);
+            node = node.prevNode;
+            if (node) node.isShortestPath = true;
+        }
+        return shortestPath;
     }
     render(){
         return(
@@ -190,6 +288,11 @@ class Pathfinding extends Component{
                                             return(
                                                 <Node 
                                                 value={element}
+                                                isWall={element.isWall}
+                                                isStart={element.isStart}
+                                                isEnd={element.isEnd}
+                                                isVisited={element.isVisited}
+                                                isShortestPath={element.isShortestPath}
                                                 key={i}
                                                 row={index}
                                                 col={i}

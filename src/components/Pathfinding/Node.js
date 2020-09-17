@@ -10,6 +10,11 @@ class Node extends Component{
     render(){
         const {
             value,
+            isWall,
+            isStart,
+            isEnd,
+            isVisited,
+            isShortestPath,
             key,
             onMouseDown,
             row,
@@ -18,7 +23,7 @@ class Node extends Component{
             onMouseUp,
             onMouseLeave
         }=this.props;
-        const cName=value==5?"start":value==10?"end":value==1000?"wall":"";
+        const cName=isStart?"start":isEnd?"end":isWall?"wall":isShortestPath?"path":isVisited?"visited":"";
         return(
             <td className={"node_"+cName} 
             id={`node-${row}-${col}`}
