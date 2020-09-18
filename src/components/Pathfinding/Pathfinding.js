@@ -164,79 +164,12 @@ class Pathfinding extends Component{
     }
     dijkshtra=(e)=>{
         e.preventDefault();
-        console.log(Dijkstra(this.state.grid,this.state.start_node,this.state.end_node))
         let arr=this.state.grid;
-        let visited_nodes=[];
-        let shortestPath=[];
-        let start_node=this.state.start_node;
-        let end_node=this.state.end_node;
-        let pq=new PriorityQueue({
-            comparator:function(a,b){
-                return a.distance-b.distance;
-            }
-        });
-        for(let i=0;i<arr.length;i++){
-            for(let j=0;j<arr[0].length;j++){
-                arr[i][j].distance=Infinity;
-                arr[i][j].prevNode=null;
-                arr[i][j].isVisited=false;
-                arr[i][j].isShortestPath=false;
-            }
-        }
-        arr[start_node[0]][start_node[1]].distance=0;
-        pq.queue(arr[start_node[0]][start_node[1]]);
-        let dx = [1, 0, -1, 0]; 
-        let dy = [0, 1, 0, -1]; 
-        // console.log(set.toArray())
-        let limit=0;
-        
-        while(pq.length){
-            let cell=pq.dequeue();
-            if(arr[cell.row][cell.col].isVisited)continue;
-            arr[cell.row][cell.col].isVisited=true;
-            visited_nodes.push(cell);
-            let flag=0;
-            for(let i=0;i<4;i++){
-                let x=cell.row+dx[i];
-                let y=cell.col+dy[i];
-                if(!this.isInsideGrid(x,y))continue;
-                if(!arr[x][y].isVisited&&(!arr[x][y].isWall||(x==end_node[0]&&y==end_node[1]))){
-                    if(x===end_node[0]&&y===end_node[1]){
-                        arr[x][y].isVisited=true;
-                        arr[x][y].prevNode=arr[cell.row][cell.col];
-                        let node=arr[x][y];
-                        while (node !== null) {
-                            shortestPath.unshift(node);
-                            node = node.prevNode;
-                            if (node){ node.isShortestPath = true;
-                                node.isVisited=false;
-                            }
-                        }
-                        flag=1;
-                        break;
-                    }
-                    const dist = Math.abs(dx[i]) === 1 && Math.abs(dy[i]) === 1 ? 1.4 : 1;
-                    if (cell.distance + dist < arr[x][y].distance) {
-                        arr[x][y].prevNode = cell;
-                        arr[x][y].distance = cell.distance + dist;
-                    }
-                    pq.queue(arr[x][y]);
-                }
-                
-            }
-            if(flag==1)break;
-        }
-        for(let i=1;i<visited_nodes.length;i++){
-            arr[visited_nodes[i].row][visited_nodes[i].col].isVisited=false
-        }
-        for(let i=1;i<shortestPath.length;i++){
-            arr[shortestPath[i].row][shortestPath[i].col].isShortestPath=false;
-            // arr[visited_nodes[i].row][visited_nodes[i].col].isVisited=true;
-        }
+        let {visited_nodes,shortestPath}=Dijkstra(this.state.grid,this.state.start_node,this.state.end_node)
+
         const animate=async ()=>{
         let i=0;
         let j=0;
-        console.log(shortestPath)
         const animateVisited=async()=>{
             if(i==visited_nodes.length){
                 requestAnimationFrame(animatePath);
@@ -277,24 +210,6 @@ class Pathfinding extends Component{
     animate().then(()=>{
         
     });
-        // for(let i=0;i<visited_nodes.length;i++){
-
-        //     setTimeout(()=>{
-        //         arr[visited_nodes[i].row][visited_nodes[i].col].isVisited=true;
-        //         this.setState({
-        //             grid:arr
-        //         })
-        //         if(i==visited_nodes.length-1)flag=1;
-        //     },i);
-        // }
-        // for(let i=0;i<shortestPath.length;i++){
-        //     setTimeout(()=>{
-        //     arr[shortestPath[i].row][shortestPath[i].col].isShortestPath=true;
-        //     this.setState({
-        //         grid:arr
-        //     })
-        //     },50*i);
-        // }
     }
     toggleChat=()=>{
         var chatBody = document.getElementById("info-body");
@@ -399,12 +314,12 @@ class Pathfinding extends Component{
                     <button id="info-btn" class="chat-btn" onClick={this.toggleChat}>ℹ</button>
                     <div id="info-body" class="chat-body" style={{display:"none"}}>
                     <div class="card bg-dark" style={{maxWidth: "18rem"}}>
-                    <div class="card-body ">
-                        <h5 class="card-title">{this.state.method}</h5>
-                    <p class="card-text" style={{maxHeight:"50vh",overflow:"auto",overflowX:"hidden"}}>{this.state.algo_info[this.state.method].text}</p>
-                        <a href={this.state.algo_info[this.state.method].url} target="_blank" class="card-link" style={{color:"#57A846"}}>More Info</a>
+                        <div class="card-body ">
+                            <h5 class="card-title">{this.state.method}</h5>
+                        <p class="card-text" style={{maxHeight:"50vh",overflow:"auto",overflowX:"hidden"}}>{this.state.algo_info[this.state.method].text}</p>
+                            <a href={this.state.algo_info[this.state.method].url} target="_blank" class="card-link" style={{color:"#57A846"}}>More Info</a>
+                        </div>
                     </div>
-</div>
                     </div>
                     </div>
             </div>
