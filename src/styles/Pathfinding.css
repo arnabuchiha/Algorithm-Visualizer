@@ -113,8 +113,11 @@ table{
   bottom: 10px;
   right: 10px;
   cursor: pointer;
-  animation: shadow-pulse 1s infinite;
+  
   display: block;
+}
+.chat-btn:focus{
+  animation: shadow-pulse 1s infinite;
 }
 @keyframes shadow-pulse {
   0% {
@@ -126,20 +129,60 @@ table{
 }
 .chat-body {
   height: auto;
-  min-height: 300px;
-  min-width: 300px;
+  width: auto;
+  min-width: 20vw;
+  /* min-height: 300px;
+  min-width: 300px; */
+  background:rgba(4, 0, 255, 0.5);
   position: absolute;
   bottom: 50px;
   right: 50px;
   border: 3px solid #343A40;
   border-radius: 14px;
-  display: block;
+  display: none;
   transition: block 1s ease-out;
+  color: #28a745;
 }
 .chat-body .chat-head {
   background: #343A40;
   padding: 10px;
   height: 20px;
-  color: rgba(255, 255, 255, 1);
   font-family: verdana;
+}
+.progress2 {
+  border-radius: 30px;
+  background-color: #fff;
+}
+
+.progress-bar2 {
+  height: 8px;
+  border-radius: 30px;
+  transition: 0.4s linear;
+  transition-property: width, background-color;
+}
+
+.progress-moved .progress-bar2 {
+  background-color: #f3c623;
+  animation: progress 5s 1;
+}
+@keyframes progress {
+  0% {
+    width: 0%;
+    background: #f9bcca;
+  }
+
+  60% {
+    /* width: 60%; */
+    background: #f3c623;
+    box-shadow: 0 0 40px #f3c623;
+  }
+}
+.progress-text:hover .comment{
+  display: block;
+}
+.progress-text:hover .span-text{
+  display: none;
+}
+.comment{
+  display: none;
 }

@@ -20,7 +20,10 @@ class Pathfinding extends Component{
             mouseClicked:false,
             mainClicked:"",
             start_node:null,
-            end_node:null
+            end_node:null,
+            visited:0,
+            shortestPath:0,
+            number_of_nodes:0
 
         }
     }
@@ -61,7 +64,10 @@ class Pathfinding extends Component{
         this.setState({
             grid:arr,
             start_node:[start_x,start_y],
-            end_node:[end_x,end_y]
+            end_node:[end_x,end_y],
+            number_of_nodes:arr.length*arr[0].length,
+            visited:0,
+            shortestPath:0
         })
         
     }
@@ -239,20 +245,26 @@ class Pathfinding extends Component{
         }
         
         const animatePath=()=>{
-            if(j==shortestPath.length)return;
+            if(j==shortestPath.length){
+                this.setState({
+                    grid:arr,
+                    visited:visited_nodes.length,
+                    shortestPath:shortestPath.length
+                })
+                return;
+            }
             arr[shortestPath[j].row][shortestPath[j].col].isShortestPath=true;
             
             if(!arr[shortestPath[j].row][shortestPath[j].col].isStart&&!arr[shortestPath[j].row][shortestPath[j].col].isEnd)
             document.getElementById(`node-${shortestPath[j].row}-${shortestPath[j].col}`).className="node_path";
             ++j;
+            
             requestAnimationFrame(animatePath);
         }
         await requestAnimationFrame(animateVisited);
     }
     animate().then(()=>{
-        this.setState({
-            grid:arr
-        })
+        
     });
         // for(let i=0;i<visited_nodes.length;i++){
 
@@ -285,15 +297,15 @@ class Pathfinding extends Component{
         return shortestPath;
     }
     toggleChat=()=>{
-        var chatBody = document.querySelector(".chat-body");
-        var chatBtn = document.querySelector(".chat-btn");
-        if(chatBtn.style.display=='none') {
-            chatBody.style.display = 'none';
-            chatBtn.style.display = 'block';
-        } else {
+        
+        var chatBody = document.getElementById("info-body");
+        if(chatBody.style.display=='none') {
+            
             chatBody.style.display = 'block';
-            chatBtn.style.display = 'none';
-            }
+        } else {
+            
+            chatBody.style.display = 'none';
+        }
     }
     render(){
         return(
@@ -319,6 +331,22 @@ class Pathfinding extends Component{
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="#" onClick={()=>this.makeGrid()}>Clear <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li className="nav-item" style={{marginLeft:"10px",minWidth:"120px"}}>
+                            <p className="progress-text"><span className="span-text">Visited Nodes</span>
+                            <span class="comment">{this.state.visited}</span>
+                            </p>
+                            {/* <p class="card-text progress-text">{this.state.shortestPath}</p> */}
+                            <div class="progress2 progress-moved" >
+                            <div class="progress-bar2" style={{width:`${(this.state.visited/this.state.number_of_nodes)*100}%`}}></div>
+                            </div>
+                        </li>
+                        <li className="nav-item" style={{marginLeft:"10px",minWidth:"120px"}}>
+                            <p className="progress-text"><span className="span-text">Shortest Path</span>
+                            <span class="comment">{this.state.shortestPath}</span></p>
+                            <div class="progress2 progress-moved" >
+                                <div class="progress-bar2" style={{width:`${(this.state.shortestPath/this.state.number_of_nodes)*100}%`}}></div>
+                            </div>
                         </li>
                         <div id="error" class="alert alert-danger" style={{marginLeft:"10px",display:"none"}} role="alert">
                             Select an algorithm first!
@@ -361,9 +389,33 @@ class Pathfinding extends Component{
                         }
                     </table>
                     <div class="chat-container">
-                    <button class="chat-btn" onclick={this.toggleChat}>✉︎</button>
-                    <div class="chat-body">
+                    <button class="chat-btn" onClick={this.toggleChat}>ℹ</button>
+                    <div id="info-body" class="chat-body">
+                    <div class="card text-white bg-dark mb-3" style={{maxWidth: "18rem"}}>
+                        
+                        <div class="card-body">
+                            <h5 class="card-title">Visited</h5>
+                            <p class="card-text progress-text">{this.state.visited}</p>
+                            <div class="progress2 progress-moved" >
+                                <div class="progress-bar2" style={{width:`${(this.state.visited/this.state.number_of_nodes)*100}%`}}></div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card text-white bg-dark mb-3" style={{maxWidth: "18rem"}}>
+                        
+                        <div class="card-body">
+                            <h5 class="card-title">Shortest Path</h5>
+                            <p class="card-text progress-text">{this.state.shortestPath}</p>
+                            <div class="progress2 progress-moved" >
+                                <div class="progress-bar2" style={{width:`${(this.state.shortestPath/this.state.number_of_nodes)*100}%`}}></div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                        
                         <div class="chat-wrap">
+                        
                     </div>
                     </div>
                     </div>
