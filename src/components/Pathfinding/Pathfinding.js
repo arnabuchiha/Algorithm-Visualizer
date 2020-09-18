@@ -23,7 +23,21 @@ class Pathfinding extends Component{
             end_node:null,
             visited:0,
             shortestPath:0,
-            number_of_nodes:0
+            number_of_nodes:0,
+            algo_info:{
+                "Algorithms":{
+                    text:"",
+                    url:""
+                },
+                "Dijkstra's Algorithm":{
+                    text:"Dijkstra’s algorithm is very similar to Prim’s algorithm for minimum spanning tree. Like Prim’s MST, we generate a SPT (shortest path tree) with given source as root. We maintain two sets, one set contains vertices included in shortest path tree, other set includes vertices not yet included in shortest path tree. At every step of the algorithm, we find a vertex which is in the other set (set of not yet included) and has a minimum distance from the source.",
+                    url:"https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/"
+                },
+                "A* Search":{
+                    text:"Informally speaking, A* Search algorithms, unlike other traversal techniques, it has “brains”. What it means is that it is really a smart algorithm which separates it from the other conventional algorithms. This fact is cleared in detail in below sections. And it is also worth mentioning that many games and web-based maps use this algorithm to find the shortest path very efficiently (approximation).",
+                    url:"https://www.geeksforgeeks.org/a-search-algorithm/"
+                }
+            }
 
         }
     }
@@ -147,9 +161,6 @@ class Pathfinding extends Component{
     isInsideGrid=(i,j) =>
     { 
         return (i >= 0 && i < this.state.grid.length && j >= 0 && j < this.state.grid[0].length); 
-    } 
-    findNode=(x)=>{
-        return x.row
     }
     dijkshtra=(e)=>{
         e.preventDefault();
@@ -285,26 +296,22 @@ class Pathfinding extends Component{
         //     },50*i);
         // }
     }
-    
-    getShortestPath=(node)=>{
-        console.log(node)
-        let shortestPath = [];
-        while (node !== null) {
-            shortestPath.unshift(node);
-            node = node.prevNode;
-            if (node) node.isShortestPath = true;
-        }
-        return shortestPath;
-    }
     toggleChat=()=>{
-        
         var chatBody = document.getElementById("info-body");
         if(chatBody.style.display=='none') {
             
             chatBody.style.display = 'block';
+            return;
         } else {
             
             chatBody.style.display = 'none';
+            return;
+        }
+    }
+    componentDidUpdate(){
+        let method=this.state.method
+        if(method!="Algorithms"){
+            document.getElementById("info-btn").style.display="block";
         }
     }
     render(){
@@ -389,34 +396,15 @@ class Pathfinding extends Component{
                         }
                     </table>
                     <div class="chat-container">
-                    <button class="chat-btn" onClick={this.toggleChat}>ℹ</button>
-                    <div id="info-body" class="chat-body">
-                    <div class="card text-white bg-dark mb-3" style={{maxWidth: "18rem"}}>
-                        
-                        <div class="card-body">
-                            <h5 class="card-title">Visited</h5>
-                            <p class="card-text progress-text">{this.state.visited}</p>
-                            <div class="progress2 progress-moved" >
-                                <div class="progress-bar2" style={{width:`${(this.state.visited/this.state.number_of_nodes)*100}%`}}></div>
-                                
-                            </div>
-                        </div>
+                    <button id="info-btn" class="chat-btn" onClick={this.toggleChat}>ℹ</button>
+                    <div id="info-body" class="chat-body" style={{display:"none"}}>
+                    <div class="card bg-dark" style={{maxWidth: "18rem"}}>
+                    <div class="card-body ">
+                        <h5 class="card-title">{this.state.method}</h5>
+                    <p class="card-text" style={{maxHeight:"50vh",overflow:"auto",overflowX:"hidden"}}>{this.state.algo_info[this.state.method].text}</p>
+                        <a href={this.state.algo_info[this.state.method].url} target="_blank" class="card-link" style={{color:"#57A846"}}>More Info</a>
                     </div>
-                    <div class="card text-white bg-dark mb-3" style={{maxWidth: "18rem"}}>
-                        
-                        <div class="card-body">
-                            <h5 class="card-title">Shortest Path</h5>
-                            <p class="card-text progress-text">{this.state.shortestPath}</p>
-                            <div class="progress2 progress-moved" >
-                                <div class="progress-bar2" style={{width:`${(this.state.shortestPath/this.state.number_of_nodes)*100}%`}}></div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                        
-                        <div class="chat-wrap">
-                        
-                    </div>
+</div>
                     </div>
                     </div>
             </div>

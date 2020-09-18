@@ -114,10 +114,11 @@ table{
   right: 10px;
   cursor: pointer;
   
-  display: block;
+  display: none;
 }
 .chat-btn:focus{
   animation: shadow-pulse 1s infinite;
+  outline:none;
 }
 @keyframes shadow-pulse {
   0% {
@@ -130,18 +131,18 @@ table{
 .chat-body {
   height: auto;
   width: auto;
-  min-width: 20vw;
+  min-width: 10vw;
   /* min-height: 300px;
   min-width: 300px; */
-  background:rgba(4, 0, 255, 0.5);
+  background:#343A40;
   position: absolute;
-  bottom: 50px;
-  right: 50px;
-  border: 3px solid #343A40;
-  border-radius: 14px;
-  display: none;
-  transition: block 1s ease-out;
-  color: #28a745;
+  bottom: 60px;
+  right: 60px;
+  box-shadow: 4px 4px 4px gray;
+  border-radius: 8px;
+  color: #fff;
+  padding: 8px;
+  margin-left: 10px;
 }
 .chat-body .chat-head {
   background: #343A40;
@@ -155,7 +156,7 @@ table{
 }
 
 .progress-bar2 {
-  height: 8px;
+  height: 5px;
   border-radius: 30px;
   transition: 0.4s linear;
   transition-property: width, background-color;
@@ -185,4 +186,21 @@ table{
 }
 .comment{
   display: none;
+}
+.info-title{
+  font-size: 2.125rem;
+    font-weight: 400;
+    line-height: 1.235;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
