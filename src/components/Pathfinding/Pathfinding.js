@@ -43,6 +43,11 @@ class Pathfinding extends Component{
                     isWall:false,
                     isShortestPath:false
                 });
+                try{
+                document.getElementById(`node-${i}-${j}`).className="node_";
+                }catch{
+                }
+
             }
             arr.push(row);
         }
@@ -51,7 +56,6 @@ class Pathfinding extends Component{
         let end_x=Math.floor(Math.random()*row_size);
         let end_y=Math.floor(Math.random()*col_size);
         arr[start_x][start_y].isStart=true;
-        console.log(arr[start_x][start_y].isWall)
         arr[end_x][end_y].isEnd=true;
 
         this.setState({
@@ -191,7 +195,6 @@ class Pathfinding extends Component{
                                 node.isVisited=false;
                             }
                         }
-                        console.log(shortestPath);
                         flag=1;
                         break;
                     }
@@ -206,17 +209,17 @@ class Pathfinding extends Component{
             }
             if(flag==1)break;
         }
-        for(let i=0;i<visited_nodes.length;i++){
+        for(let i=1;i<visited_nodes.length;i++){
             arr[visited_nodes[i].row][visited_nodes[i].col].isVisited=false
         }
-        for(let i=0;i<shortestPath.length;i++){
+        for(let i=1;i<shortestPath.length;i++){
             arr[shortestPath[i].row][shortestPath[i].col].isShortestPath=false;
-            arr[visited_nodes[i].row][visited_nodes[i].col].isVisited=true;
+            // arr[visited_nodes[i].row][visited_nodes[i].col].isVisited=true;
         }
-        let flag=0;
         const animate=async ()=>{
-        let i=1;
-        let j=1;
+        let i=0;
+        let j=0;
+        console.log(shortestPath)
         const animateVisited=async()=>{
             if(i==visited_nodes.length){
                 requestAnimationFrame(animatePath);
@@ -226,6 +229,7 @@ class Pathfinding extends Component{
             // this.setState({
             //     grid:arr
             // })
+            if(!arr[visited_nodes[i].row][visited_nodes[i].col].isStart&&!arr[visited_nodes[i].row][visited_nodes[i].col].isEnd)
             document.getElementById(`node-${visited_nodes[i].row}-${visited_nodes[i].col}`).className="node_visited";
             ++i;
             requestAnimationFrame(animateVisited);
@@ -235,8 +239,10 @@ class Pathfinding extends Component{
         }
         
         const animatePath=()=>{
-            if(j==shortestPath.length-1)return;
+            if(j==shortestPath.length)return;
             arr[shortestPath[j].row][shortestPath[j].col].isShortestPath=true;
+            
+            if(!arr[shortestPath[j].row][shortestPath[j].col].isStart&&!arr[shortestPath[j].row][shortestPath[j].col].isEnd)
             document.getElementById(`node-${shortestPath[j].row}-${shortestPath[j].col}`).className="node_path";
             ++j;
             requestAnimationFrame(animatePath);
