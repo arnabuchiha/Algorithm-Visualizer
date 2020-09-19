@@ -40,11 +40,12 @@ class Pathfinding extends Component{
             }
 
         }
+        this.animating=false;
     }
     
     
     makeGrid=()=>{
-
+        if(this.animating)return;
         let row_size=Math.floor((window.innerHeight-60)/27);
         let col_size=Math.floor((window.innerWidth)/27);
         let arr=[]
@@ -92,6 +93,7 @@ class Pathfinding extends Component{
         })
     }
     handleMouseDown=(row,col)=>{
+        if(this.animating)return;
         let arr=this.state.grid;
         if(arr[row][col].isStart){
             this.setState({
@@ -114,7 +116,7 @@ class Pathfinding extends Component{
         })
     }
     handleMouseEnter=(row,col)=>{
-        
+        if(this.animating)return;
         if(this.state.mouseClicked){
             let arr=this.state.grid;
             if(this.state.mainClicked=="start"){
@@ -142,6 +144,7 @@ class Pathfinding extends Component{
         
     }
     handleMouseLeave=(row,col)=>{
+        if(this.animating)return;
         let arr=this.state.grid;
         if(this.state.mainClicked!=""){
             arr[row][col].isStart=0;
@@ -153,6 +156,8 @@ class Pathfinding extends Component{
         
     }
     handleMouseUp=()=>{
+
+        if(this.animating)return;
         this.setState({
             mouseClicked:false,
             mainClicked:""
@@ -164,13 +169,26 @@ class Pathfinding extends Component{
     }
     dijkshtra=(e)=>{
         e.preventDefault();
+        if(this.animating)return;
         let arr=this.state.grid;
+        for(let i=0;i<arr.length;i++){
+            for(let j=0;j<arr[0].length;j++){
+                if(document.getElementById(`node-${i}-${j}`).className=="node_path")
+                    document.getElementById(`node-${i}-${j}`).className="node_";
+                if(document.getElementById(`node-${i}-${j}`).className=="node_visited"){
+                    document.getElementById(`node-${i}-${j}`).className="node_";
+                }
+            }
+        }
+        
         let {visited_nodes,shortestPath}=Dijkstra(this.state.grid,this.state.start_node,this.state.end_node)
-
+        
         const animate=async ()=>{
+            
         let i=0;
         let j=0;
-        const animateVisited=async()=>{
+        this.animating=true;
+        const animateVisited=()=>{
             if(i==visited_nodes.length){
                 requestAnimationFrame(animatePath);
                 return;
@@ -195,6 +213,7 @@ class Pathfinding extends Component{
                     visited:visited_nodes.length,
                     shortestPath:shortestPath.length
                 })
+                this.animating=false;
                 return;
             }
             arr[shortestPath[j].row][shortestPath[j].col].isShortestPath=true;
