@@ -1,46 +1,55 @@
 import React, { Component } from "react";
-import '../styles/Sorting.css'
+import '../styles/Sorting.css';
+import { motion } from "framer-motion";
+const springAnim = {
+    type: "spring",
+    damping: 20,
+    stiffness: 300
+};
 class Sorting extends Component{
     constructor(){
         super();
         this.state={
-            arr:Array.from({length: Math.floor(window.screen.width/80)/2}, () => Math.floor(Math.random() * ((window.screen.height/4)-30+1))+30),
+            arr:[],
             method:"Algorithms",
-            length:Math.floor(window.screen.width/80)/2,
+            length:0,
             compare:{
                 i:null,
                 j:null
             },
             sorted:[]
         }
+
     }
-    changeArray=(e)=>{
+    createArray=(e=Math.floor(window.innerWidth/80)/2)=>{
+        let arr=[];
+        for(let i=0;i<e;i++){
+            arr.push({
+                value:Math.floor(Math.random() * ((window.innerHeight/4)-30+1))+30,
+                id:"id-"+i
+            })
+        }
         this.setState({
-            arr:Array.from({length: e.target.value}, () => Math.floor(Math.random() * ((window.screen.height/4)-30+1))+30),
-            length:e.target.value,
+            arr:arr,
+            length:e,
             sorted:[],
             compare:{
 
             }
         })
     }
-    componentDidMount(){
-        
+    changeArray=(e)=>{
+        this.createArray(e.target.value)
     }
-    randomize=()=>{
-        this.setState({
-            arr:Array.from({length: this.state.length}, () => Math.floor(Math.random() * ((window.screen.height/4)-30+1))+30),
-            sorted:[]
+    componentDidMount(){
+        this.createArray();
+        window.addEventListener("resize",(e)=>{
+            this.createArray();
         })
     }
-    sleep=(milliseconds)=> {
-        var start = new Date().getTime();
-        for (var i = 0; i < 1e7; i++) {
-          if ((new Date().getTime() - start) > milliseconds){
-            break;
-          }
-        }
-      }
+    randomize=()=>{
+        this.createArray()
+    }
     sortFunc=(e)=>{
         e.preventDefault();
         document.getElementById('error').style="display:none";
@@ -55,39 +64,57 @@ class Sorting extends Component{
         }
     }
     insertionSort=()=>{
-
+        // document.getElementById("bars").
+        let elementI=document.getElementById('id-2');
+        let elementJ=document.getElementById('id-4');
+        document.getElementById("bars").insertBefore(elementI,elementJ)
+        document.getElementById("bars").insertBefore(elementJ,elementI)
+        [elementI.style.left, elementJ.style.left] = [elementJ.style.left, elementI.style.left];
     }
     selectionSort=()=>{
+        
         let arr=this.state.arr;
+        console.log(this.state.arr);
         this.sorted=false;
-        for(let i=0;i<arr.length;i++){
+        let length=this.state.length;
+        let sorts=[];
+        for(let i=0;i<length;i++){
             let max=i;
             setTimeout(()=>{
-                
-                for(let j=i+1;j<=arr.length;j++){
-                    this.setState({
-                        compare:{
-                            i:i,
-                            j:max
-                        }
-                    })
+                arr[i].style="bar-swap";
+                this.setState({
+                    arr:arr
+                })
+                for(let j=i+1;j<length;j++){
+                    // this.setState({
+                    //     compare:{
+                    //         i:i,
+                    //         j:max
+                    //     }
+                    // })
                     console.log(this.state.compare)
-                    if(arr[j]<arr[max]){
+                    // try{
+                    
+                    if(arr[j].value<arr[max].value){
                         max=j;
                     }
-                    this.setState({
-                        arr:arr
-                    })
-                    
+                // }catch{}
+                    // this.setState({
+                    //     arr:arr
+                    // })
+                    arr[j].style="bar-swap";
+                    // arr[max].style="bar-swap";
                     if(j==arr.length){
                         
                     }
                 }
                 
                 [arr[i],arr[max]]=[arr[max],arr[i]];
-                
+                arr[i].style="bar-sorted";
+
                 this.setState({
-                    sorted:[...this.state.sorted,i]
+                    sorted:[...this.state.sorted,i],
+                    arr:arr
                 })
                 
                 
@@ -136,15 +163,24 @@ class Sorting extends Component{
                         </form>
                     </div>
                     </nav>
-              <div style={{margin:"20px"}}>
+              <div className="bars" id="bars" style={{margin:"20px"}}>
                     {
                     (this.state.arr.map((element,index) =>
-                        index in this.state.sorted&&this.state.compare.i!=index&&this.state.compare.j!=index?
-                        <div className="bar" style={{height:element*3,width:"66px",marginLeft:"6px",backgroundColor:"#b979ec"}}>{element}</div>:
-                        this.state.compare.i==index||this.state.compare.j==index?
-                        <div className="bar" style={{height:element*3,width:"66px",marginLeft:"6px",backgroundColor:"#57a846"}}>{element}</div>
-                        :
-                        <div className="bar" style={{height:element*3,width:"66px",marginLeft:"6px",backgroundColor:"#5bc9b1"}}>{element}</div>
+                    <motion.div
+                        key={element.id}
+                        layout transition={springAnim}
+                        className={`bar ${element.style}`}
+                        id={element.id}
+                        style={{height:element.value*3}}
+                    >
+                    {element.value}
+                    </motion.div>
+                        // index in this.state.sorted&&this.state.compare.i!=index&&this.state.compare.j!=index?
+                        // <div id={element.id} className="bar" style={{height:element.value*3,width:"66px",marginLeft:"6px",backgroundColor:"#b979ec",order:index}}>{element.value}</div>:
+                        // this.state.compare.i==index||this.state.compare.j==index?
+                        // <div id={element.id} className="bar" style={{height:element.value*3,width:"66px",marginLeft:"6px",backgroundColor:"#57a846",order:index}}>{element.value}</div>
+                        // :
+                        // <div id={element.id} className="bar" style={{height:element.value*3,width:"66px",marginLeft:"6px",backgroundColor:"#5bc9b1",order:index}}>{element.value}</div>
                         
                     ))}
                 </div>

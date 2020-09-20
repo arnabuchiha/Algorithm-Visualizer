@@ -4,4 +4,31 @@
     font-weight: 700;
     display: inline-block;
     color:white;
+    width:66px;
+    margin-left:6px;
+    background-color:#5bc9b1;
+}
+.bar-sorted{
+    background-color:#b979ec;
+    
+}
+.bar-swap{
+    background-color:#57a846;
+}
+.bars{
+    /* display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-flex-direction: horizontal;
+    flex-direction: horizontal;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    z-index: -1; */
 }
