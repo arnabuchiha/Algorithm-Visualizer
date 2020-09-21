@@ -15,6 +15,9 @@
 .bar-swap{
     background-color:#57a846;
 }
+.bar-min{
+    background-color: red;
+}
 .bars{
     /* display: -webkit-box;
     display: -webkit-flex;

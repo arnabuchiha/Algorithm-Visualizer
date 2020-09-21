@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch, Link, BrowserRouter as Router } from "react-router-dom";
 import './App.css';
-import Sorting from "./components/Sorting";
+import Sorting from "./components/Sorting/Sorting";
 import Home from "./components/Home"
 import Pathfinding from "./components/Pathfinding/Pathfinding"
 function App() {

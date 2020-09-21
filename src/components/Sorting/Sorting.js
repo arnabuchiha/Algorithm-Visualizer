@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import '../styles/Sorting.css';
+import '../../styles/Sorting.css';
 import { motion } from "framer-motion";
+import selectionSort from "./algorithms/SelectionSort";
 const springAnim = {
     type: "spring",
     damping: 20,
@@ -17,7 +18,8 @@ class Sorting extends Component{
                 i:null,
                 j:null
             },
-            sorted:[]
+            sorted:[],
+            speed:100
         }
 
     }
@@ -64,71 +66,33 @@ class Sorting extends Component{
         }
     }
     insertionSort=()=>{
-        // document.getElementById("bars").
-        let elementI=document.getElementById('id-2');
-        let elementJ=document.getElementById('id-4');
-        document.getElementById("bars").insertBefore(elementI,elementJ)
-        document.getElementById("bars").insertBefore(elementJ,elementI)
-        [elementI.style.left, elementJ.style.left] = [elementJ.style.left, elementI.style.left];
+        document.getElementById('id-1').style.order=2;
+        document.getElementById('id-2').style.order=1;
     }
     selectionSort=()=>{
         
-        let arr=this.state.arr;
-        console.log(this.state.arr);
-        this.sorted=false;
+        var arr=this.state.arr;
         let length=this.state.length;
-        let sorts=[];
-        for(let i=0;i<length;i++){
-            let max=i;
+        var results=selectionSort(arr,length)
+        console.log(results)
+        for(let i=0;i<results.length;i++){
             setTimeout(()=>{
-                arr[i].style="bar-swap";
                 this.setState({
-                    arr:arr
+                    arr:results[i]
                 })
-                for(let j=i+1;j<length;j++){
-                    // this.setState({
-                    //     compare:{
-                    //         i:i,
-                    //         j:max
-                    //     }
-                    // })
-                    console.log(this.state.compare)
-                    // try{
-                    
-                    if(arr[j].value<arr[max].value){
-                        max=j;
-                    }
-                // }catch{}
-                    // this.setState({
-                    //     arr:arr
-                    // })
-                    arr[j].style="bar-swap";
-                    // arr[max].style="bar-swap";
-                    if(j==arr.length){
-                        
-                    }
-                }
-                
-                [arr[i],arr[max]]=[arr[max],arr[i]];
-                arr[i].style="bar-sorted";
-
-                this.setState({
-                    sorted:[...this.state.sorted,i],
-                    arr:arr
-                })
-                
-                
-            },1000*i);
-            
-        };
+            },this.state.speed*i)
+        }
         
-        
-        
+    }
+    changeSpeed=(e)=>{
+        this.setState({
+            speed:1100-e.target.value
+        })
     }
     render(){
         return(
             <div>
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <a class="navbar-brand" href="#">Sorting</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -154,6 +118,10 @@ class Sorting extends Component{
                         <input onChange={this.changeArray} type="range" min="2" max={Math.floor(window.screen.width/80)} defaultValue={Math.floor(window.screen.width/80)/2} id="changeSize" style={{background: "white",cursor: "pointer"}}/>
                         <a class="nav-link">Increase Array Size</a>
                         </li>
+                        <li class="nav-item">
+                        <input onChange={this.changeSpeed} type="range" min="100" max={1000} defaultValue={500} id="changeSize" style={{background: "white",cursor: "pointer"}}/>
+                        <a class="nav-link">Increase Speed</a>
+                        </li>
                         <div id="error" class="alert alert-danger" style={{marginLeft:"10px",display:"none"}} role="alert">
                             Select an algorithm first!
                         </div>
@@ -171,7 +139,7 @@ class Sorting extends Component{
                         layout transition={springAnim}
                         className={`bar ${element.style}`}
                         id={element.id}
-                        style={{height:element.value*3}}
+                        style={{height:element.value*3,order:index}}
                     >
                     {element.value}
                     </motion.div>
