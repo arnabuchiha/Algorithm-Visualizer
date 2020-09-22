@@ -3,6 +3,7 @@ import '../../styles/Sorting.css';
 import { motion } from "framer-motion";
 import selectionSort from "./algorithms/SelectionSort";
 import mergeSort from "./algorithms/MergeSort";
+import quickSort from "./algorithms/QuickSort";
 const springAnim = {
     type: "spring",
     damping: 20,
@@ -56,7 +57,7 @@ class Sorting extends Component{
     sortFunc=(e)=>{
         e.preventDefault();
         var arr=this.state.arr;
-        let length=this.state.length;
+        let length=this.state.arr.length;
         var results=[]
         document.getElementById('error').style="display:none";
         if(this.state.method=="Algorithms"){
@@ -67,6 +68,8 @@ class Sorting extends Component{
                 results=selectionSort(arr,length);
             else if(this.state.method=="Merge Sort")
                 results=mergeSort(arr,length);
+            else if(this.state.method=="Quick Sort")
+                results=quickSort(arr,length);
             for(let i=0;i<results.length;i++){
                 setTimeout(()=>{
                     this.setState({
@@ -109,7 +112,7 @@ class Sorting extends Component{
                             </div>
                         </li>
                         <li class="nav-item">
-                        <input onChange={this.changeArray} type="range" min="2" max={Math.floor(window.screen.width/50)} defaultValue={Math.floor(window.screen.width/50)/2} id="changeSize" style={{background: "white",cursor: "pointer"}}/>
+                        <input onChange={this.changeArray} type="range" min="2" max={Math.floor(window.screen.width/50)} defaultValue={Math.floor((window.screen.width/50)/2)} id="changeSize" style={{background: "white",cursor: "pointer"}}/>
                         <a class="nav-link">Increase Array Size</a>
                         </li>
                         <li class="nav-item">
