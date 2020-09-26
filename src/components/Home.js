@@ -17,6 +17,11 @@ class Home extends Component{
                     name:"Pathfinding",
                     imgUrl:"https://upload.wikimedia.org/wikipedia/commons/4/4c/Pathfinding_2D_Illustration.svg",
                     link:"/pathfind"
+                },
+                {
+                    name:"ConvexHull",
+                    imgUrl:"https://www.originlab.com/fileexchange/images/355/2D_ConvexHull.png",
+                    link:"/convexhull"
                 }
             ]
         }

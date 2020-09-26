@@ -4,6 +4,7 @@ import './App.css';
 import Sorting from "./components/Sorting/Sorting";
 import Home from "./components/Home"
 import Pathfinding from "./components/Pathfinding/Pathfinding"
+import ConvexHull from './components/ConvexHull/ConvexHull';
 function App() {
   return (
     <div className="App">
@@ -16,9 +17,13 @@ function App() {
                 <Route path="/sorting">
                   <Sorting/>
                 </Route>
+                <Route path="/convexhull">
+                  <ConvexHull/>
+                </Route>
                 <Route path="/">
                   <Home />
                 </Route>
+                
             </Switch>
         </div>
       </Router>
