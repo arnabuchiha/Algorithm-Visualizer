@@ -185,10 +185,8 @@ class ConvexHull extends Component{
         for(let i=lo.length-1;i>=0;i--){
             result.push(lo[i]);
         }
-        
-        console.log(result)
         setTimeout(()=>{
-            
+            context.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.drawAllNodes();
             this.makeCircle(p1.x,p1.y);
             this.makeCircle(p2.x,p2.y);
