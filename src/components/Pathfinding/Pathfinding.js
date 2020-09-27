@@ -3,6 +3,8 @@ import "../../styles/Pathfinding.css";
 import Node from "./Node";
 import PriorityQueue from "js-priority-queue";
 import Dijkstra from "./algorithms/Dijkstra";
+import Instruct from "../Instructions/Instruct";
+import instruct_gif from "../../assets/pathfinder.gif";
 function node(row,col,dis){
     return({
         row,
@@ -37,7 +39,8 @@ class Pathfinding extends Component{
                     text:"Informally speaking, A* Search algorithms, unlike other traversal techniques, it has “brains”. What it means is that it is really a smart algorithm which separates it from the other conventional algorithms. This fact is cleared in detail in below sections. And it is also worth mentioning that many games and web-based maps use this algorithm to find the shortest path very efficiently (approximation).",
                     url:"https://www.geeksforgeeks.org/a-search-algorithm/"
                 }
-            }
+            },
+            showModal:true
 
         }
         this.animating=false;
@@ -242,6 +245,15 @@ class Pathfinding extends Component{
             return;
         }
     }
+    showModal = () => {
+        this.setState({ 
+                showModal: true
+            });
+      };
+    
+    hideModal = () => {
+    this.setState({ showModal: false });
+    };
     componentDidUpdate(){
         let method=this.state.method
         if(method!="Algorithms"){
@@ -251,6 +263,11 @@ class Pathfinding extends Component{
     render(){
         return(
             <div>
+                <Instruct show={this.state.showModal}>
+                    <h3>How to use?</h3>
+                <img className="card-img-top img-thumbnail" style={{marginBottom:"5px"}} src={instruct_gif} alt="Card image cap"/>
+                    <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.hideModal}>Close</button>
+                </Instruct>
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style={{color:"white"}}>
                     <a class="navbar-brand" href="#">Pathfinding Visualizer</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -272,6 +289,9 @@ class Pathfinding extends Component{
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="#" onClick={()=>this.makeGrid()}>Clear <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li className="nav-item">
+                        <a className="nav-link" href="#" onClick={this.showModal}>Instructions <span className="sr-only" >(current)</span></a>
                         </li>
                         <li className="nav-item" style={{marginLeft:"10px",minWidth:"120px"}}>
                             <p className="progress-text"><span className="span-text">Visited Nodes</span>

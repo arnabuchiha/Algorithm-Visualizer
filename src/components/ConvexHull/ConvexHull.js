@@ -1,14 +1,24 @@
 import React, { Component } from "react";
 import "../../styles/ConvexHull.css";
+import Instruct from "../Instructions/Instruct";
+import instruct_gif from "../../assets/convex_instruct.gif";
 class ConvexHull extends Component{
     constructor(){
         super()
         this.state={
             points:[],
-            dottedPoints:[]
+            showModal:true
         }
     }
+    showModal = () => {
+        this.setState({ 
+                showModal: true
+            });
+      };
     
+    hideModal = () => {
+    this.setState({ showModal: false });
+    };
     componentDidMount(){
         window.addEventListener("resize",(e)=>{
             // var canvas = document.getElementById("myCanvas");
@@ -56,9 +66,6 @@ class ConvexHull extends Component{
         ctx.stroke();
         ctx.closePath();
         ctx.restore();
-        this.setState({
-            dottedPoints:[...this.state.dottedPoints,{x1,y1,x2,y2}]
-        })
     }
     clearBoard=()=>{
         const context = this.canvas.getContext('2d');
@@ -77,10 +84,6 @@ class ConvexHull extends Component{
         ctx.lineTo(x2,y2);
         ctx.stroke();
         ctx.closePath();
-        
-        this.setState({
-            linePoints:[...this.state.dottedPoints,{x1,y1,x2,y2}]
-        })
     }
     makeCircle=(x,y)=>{
         var ctx = this.canvas.getContext("2d");
@@ -199,6 +202,11 @@ class ConvexHull extends Component{
     render(){
         return(
             <div style={{height:"100vh",alignItems:"center"}}>
+                <Instruct show={this.state.showModal}>
+                    <h3>How to use?</h3>
+                <img className="card-img-top img-thumbnail" style={{marginBottom:"5px"}} src={instruct_gif} alt="Card image cap"/>
+                    <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.hideModal}>Close</button>
+                </Instruct>
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{color:"white"}}>
                     <a className="navbar-brand" href="#">ConvexHull Visualizer</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -211,7 +219,7 @@ class ConvexHull extends Component{
                         <a className="nav-link" href="#" onClick={()=>this.createRandomNodes()}>Random Points <span className="sr-only">(current)</span></a>
                         </li>
                         <li className="nav-item">
-                        <a className="nav-link" href="#" >Instructions <span className="sr-only">(current)</span></a>
+                        <a className="nav-link" href="#" onClick={this.showModal}>Instructions <span className="sr-only" >(current)</span></a>
                         </li>
                         <li className="nav-item">
                         <a className="nav-link" href="#" onClick={()=>this.clearBoard()}>Clear <span className="sr-only">(current)</span></a>
@@ -225,7 +233,7 @@ class ConvexHull extends Component{
                     </div>
                     </nav>
                 <canvas id="myCanvas" className="canvas" width={0.7*window.innerWidth} height={0.7*window.innerHeight} ></canvas> 
-            
+                
             </div>
         )
     }
