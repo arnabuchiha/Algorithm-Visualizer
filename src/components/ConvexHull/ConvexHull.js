@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../../styles/ConvexHull.css";
-import paper,{Path, Point, Tool, View, view} from "paper"
 class ConvexHull extends Component{
     constructor(){
         super()

@@ -1,22 +1,48 @@
 .card1 {
     transition: all 150ms ease;
-    border: 1px solid rgb(91, 201, 177);
-    border-radius: 5px;
+    border: 1px solid #eeeeee;
+    border-radius: 4px;
+    /* padding-top: 10px; */
     border-width: 0.5px;
+    box-shadow: 5px 8px 4px #888888;
+    font-family: 'Source Sans Pro';
 }
 .card1:focus,
 .card1:hover {
-  border-color: #5bc9b1;
+  border-color: #eeeeee;
   border-width: 4px;
   /* box-shadow: 3px 3px 3px #BFBFBF; */
 }
 .algo-name {
     font-size: 18px;
     font-weight: 700;
-    color:#005555;
+    color:black;
 }
 .algo-image{
     height: 175px;
     width: auto;
     object-fit:cover; 
+}
+.back{
+}
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    background-image: url("");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+    z-index: -100;
+    top:0;
+    left:0;
+  }
+
+.logo{
+    /* left: 50%;                         
+    transform: translate( -50%,0); */
+    position: relative;
+    z-index: 100;
+    float:top;
 }
