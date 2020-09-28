@@ -9,8 +9,8 @@ Fascinated with DS and Algo?!!</br>
 This website can be used to visualize multiple algorithms which includes Sorting, Pathfinding and ConvexHull. You can access it here:
 https://algorithm-visualizer.vercel.app/
 
-<p align="center">
-Show some love ❤️ and Star ⭐️ the Repository to support the project.
+![Branch master](https://img.shields.io/badge/branch-master-brightgreen.svg?style=flat-square) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/arnabuchiha/Algorithm-Visualizer/blob/master/LICENSE)
+
 
 ## Algorithms
 
@@ -42,3 +42,6 @@ Show some love ❤️ and Star ⭐️ the Repository to support the project.
 - Now run the command **npm start** to run the frontend on your localhost.
 - Follow the same procedure for the backend repository , to run the server on your localhost .
 - Run the app live on **localhost:3000** 
+
+<p align="center">
+Show some love ❤️ and Star ⭐️ the Repository to support the project.
