@@ -39,8 +39,7 @@ https://algorithm-visualizer.vercel.app/
 - Clone this repository and the backend repository from <a href="https://github.com/arnabuchiha/Algorithm-Visualizer.git">here</a> .
 - Open CMD on your computer and change the directory to the place where you cloned the front-end repository.
 - Run the command **npm install** to install all the necessary packages from node server.
-- Now run the command **npm start** to run the frontend on your localhost.
-- Follow the same procedure for the backend repository , to run the server on your localhost .
+- Now run the command **npm start** to run the app on your localhost.
 - Run the app live on **localhost:3000** 
 
 <p align="center">
