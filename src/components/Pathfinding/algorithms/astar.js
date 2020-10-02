@@ -70,4 +70,4 @@ const astar = (grid, startNode, endNode) => {
         }
         return {visited_nodes,shortestPath};
 }
-export default ;
+export default astar;
