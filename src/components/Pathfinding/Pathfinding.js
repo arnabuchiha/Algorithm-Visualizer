@@ -5,6 +5,7 @@ import PriorityQueue from "js-priority-queue";
 import Dijkstra from "./algorithms/Dijkstra";
 import Instruct from "../Instructions/Instruct";
 import instruct_gif from "../../assets/pathfinder.gif";
+import { NavLink } from "react-router-dom";
 function node(row,col,dis){
     return({
         row,
@@ -276,7 +277,9 @@ class Pathfinding extends Component{
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
-                        
+                        <li className="nav-item">
+                        <NavLink exact to="/" className="nav-link">Home</NavLink>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {this.state.method}

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import selectionSort from "./algorithms/SelectionSort";
 import mergeSort from "./algorithms/MergeSort";
 import quickSort from "./algorithms/QuickSort";
+import { NavLink } from "react-router-dom";
 const springAnim = {
     type: "spring",
     damping: 20,
@@ -97,6 +98,9 @@ class Sorting extends Component{
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
+                        <li className="nav-item">
+                        <NavLink exact to="/" className="nav-link">Home</NavLink>
+                        </li>
                         <li class="nav-item active">
                             <a class="nav-link" href="#" onClick={this.randomize}>Randomize <span class="sr-only">(current)</span></a>
                         </li>

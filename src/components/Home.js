@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import "../styles/Home.css"
 import Logo from "../assets/heading_logo.png";
+import convexhull from "../assets/convex_hull.png";
+import sorting from "../assets/sorting.png"
 import "particles.js";
 import particleJSON from "../assets/particles.json";
+import pathfinding_front from "../assets/pathfinding_front.svg";
 class Home extends Component{
     constructor(){
         super();
@@ -10,18 +13,18 @@ class Home extends Component{
             problems:[
                 {
                     name:"Sorting",
-                    imgUrl:"https://docs.spotfire.cloud.tibco.com/spotfire/GUID-D0DB52CC-E926-49D9-968E-BE1FD173C077-display.png",
+                    imgUrl:sorting,
                     link:"/sorting"
                     
                 },
                 {
                     name:"Pathfinding",
-                    imgUrl:"https://upload.wikimedia.org/wikipedia/commons/4/4c/Pathfinding_2D_Illustration.svg",
+                    imgUrl:pathfinding_front,
                     link:"/pathfind"
                 },
                 {
                     name:"ConvexHull",
-                    imgUrl:"https://www.originlab.com/fileexchange/images/355/2D_ConvexHull.png",
+                    imgUrl:convexhull,
                     link:"/convexhull"
                 }
             ]

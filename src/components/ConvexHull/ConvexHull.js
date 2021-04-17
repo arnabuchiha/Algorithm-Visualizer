@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../../styles/ConvexHull.css";
 import Instruct from "../Instructions/Instruct";
 import instruct_gif from "../../assets/convex_instruct.gif";
+import { NavLink } from "react-router-dom";
 class ConvexHull extends Component{
     constructor(){
         super()
@@ -215,6 +216,9 @@ class ConvexHull extends Component{
 
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav mr-auto">
+                        <li className="nav-item">
+                        <NavLink exact to="/" className="nav-link">Home</NavLink>
+                        </li>
                         <li className="nav-item">
                         <a className="nav-link" href="#" onClick={()=>this.createRandomNodes()}>Random Points <span className="sr-only">(current)</span></a>
                         </li>
