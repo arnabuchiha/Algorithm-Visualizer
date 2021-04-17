@@ -219,6 +219,7 @@ class ConvexHull extends Component{
                         <li className="nav-item">
                         <NavLink exact to="/" className="nav-link">Home</NavLink>
                         </li>
+                        
                         <li className="nav-item">
                         <a className="nav-link" href="#" onClick={()=>this.createRandomNodes()}>Random Points <span className="sr-only">(current)</span></a>
                         </li>
