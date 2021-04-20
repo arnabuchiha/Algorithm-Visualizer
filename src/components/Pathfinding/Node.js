@@ -9,13 +9,11 @@ class Node extends Component{
     }
     render(){
         const {
-            value,
             isWall,
             isStart,
             isEnd,
             isVisited,
             isShortestPath,
-            key,
             onMouseDown,
             row,
             col,

@@ -90,7 +90,7 @@ class Sorting extends Component{
     render(){
         return(
             <div>
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <a class="navbar-brand" href="#">Sorting</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -101,7 +101,7 @@ class Sorting extends Component{
                         <li className="nav-item">
                         <NavLink exact to="/" className="nav-link">Home</NavLink>
                         </li>
-                        <li class="nav-item active">
+                        <li class="nav-item ">
                             <a class="nav-link" href="#" onClick={this.randomize}>Randomize <span class="sr-only">(current)</span></a>
                         </li>
                         
@@ -115,13 +115,20 @@ class Sorting extends Component{
                                 <a class="dropdown-item" href="#" onClick={()=>this.setState({method:"Quick Sort"})}>Quick sort</a>
                             </div>
                         </li>
-                        <li class="nav-item">
-                        <input onChange={this.changeArray} type="range" min="2" max={Math.floor(window.screen.width/50)} defaultValue={Math.floor((window.screen.width/50)/2)} id="changeSize" style={{background: "white",cursor: "pointer"}}/>
-                        <a class="nav-link">Increase Array Size</a>
-                        </li>
-                        <li class="nav-item">
-                        <input onChange={this.changeSpeed} type="range" min="100" max={1000} defaultValue={500} id="changeSize" style={{background: "white",cursor: "pointer"}}/>
-                        <a class="nav-link">Increase Speed</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Controls
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li class="ml-3 nav-item">
+                                    <input onChange={this.changeArray} type="range" min="2" max={Math.floor(window.screen.width/50)} defaultValue={Math.floor((window.screen.width/50)/2)} id="changeSize" />
+                                    <a class="nav-link">Increase Array Size</a>
+                                </li>
+                                <li class="ml-3 nav-item">
+                                    <input onChange={this.changeSpeed} type="range" min="100" max={1000} defaultValue={500} id="changeSize"/>
+                                    <a class="nav-link">Increase Speed</a>
+                                </li>
+                            </div>
                         </li>
                         <div id="error" class="alert alert-danger" style={{marginLeft:"10px",display:"none"}} role="alert">
                             Select an algorithm first!

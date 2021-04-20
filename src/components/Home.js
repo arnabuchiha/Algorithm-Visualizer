@@ -6,6 +6,7 @@ import sorting from "../assets/sorting.png"
 import "particles.js";
 import particleJSON from "../assets/particles.json";
 import pathfinding_front from "../assets/pathfinding_front.svg";
+import github_logo from "../assets/Github-Mark/GitHub-Mark-64px.png"
 class Home extends Component{
     constructor(){
         super();
@@ -32,18 +33,17 @@ class Home extends Component{
     }
     componentDidMount(){
         
-      window.particlesJS("particles-js",particleJSON );
+    //   window.particlesJS("particles-js",particleJSON );
       
     }
     render(){
         return(
             <div className="back">
-              <img className="img-fluid mt-4 logo" src={Logo}/>
-                    <div id="particles-js"></div>
-                
-                <ul class="list-inline mt-5" style={{display:"block",position:"relative"}}>
-                    {this.state.problems.map(element=>
-                        <li className="list-inline-item mb-2" style={{cursor:"pointer"}} onClick={()=>window.location.href=element.link}>
+              <img className="img-fluid mt-4 logo" alt="Algorithm Visualizer" src={Logo}/>
+                <img className="img-fluid mt-4 github-logo" alt="Github Link" onClick={()=>window.open('https://github.com/arnabuchiha/Algorithm-Visualizer', '_blank')} src={github_logo}/>
+                <ul className="list-inline mt-5" style={{display:"block",position:"relative"}}>
+                    {this.state.problems.map((element,i)=>
+                        <li key={i} className="list-inline-item mb-2" style={{cursor:"pointer"}} onClick={()=>window.location.href=element.link}>
                         <div className="card card1" style={{width: "14rem"}}>
                             <img className="card-img-top img-thumbnail algo-image" src={element.imgUrl} alt="Card image cap"/>
                             <div style={{overflow:"hidden",backgroundColor:"#eeeeee"}} className="card-body">

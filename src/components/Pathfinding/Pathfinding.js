@@ -39,6 +39,10 @@ class Pathfinding extends Component{
                 "A* Search":{
                     text:"Informally speaking, A* Search algorithms, unlike other traversal techniques, it has “brains”. What it means is that it is really a smart algorithm which separates it from the other conventional algorithms. This fact is cleared in detail in below sections. And it is also worth mentioning that many games and web-based maps use this algorithm to find the shortest path very efficiently (approximation).",
                     url:"https://www.geeksforgeeks.org/a-search-algorithm/"
+                },
+                "Breadth First Search":{
+                    text:"In Progress",
+                    url:"https://www.geeksforgeeks.org/a-search-algorithm/"
                 }
             },
             showModal:true
@@ -269,7 +273,7 @@ class Pathfinding extends Component{
                 <img className="card-img-top img-thumbnail" style={{marginBottom:"5px"}} src={instruct_gif} alt="Card image cap"/>
                     <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.hideModal}>Close</button>
                 </Instruct>
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style={{color:"white"}}>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light" style={{color:"white"}}>
                     <a class="navbar-brand" href="#">Pathfinding Visualizer</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -287,7 +291,7 @@ class Pathfinding extends Component{
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="#" onClick={()=>this.setState({method:"Dijkstra's Algorithm"})}>Dijkstra's Algorithm</a>
                                 <a class="dropdown-item" href="#" onClick={()=>this.setState({method:"A* Search"})}>A* Search</a>
-                                <a class="dropdown-item" href="#" onClick={()=>this.setState({method:"Breath First Search"})}>Breath First Search</a>
+                                {/* <a class="dropdown-item" href="#" onClick={()=>this.setState({method:"Breath First Search"})}>Breath First Search</a> */}
                             </div>
                         </li>
                         <li class="nav-item">

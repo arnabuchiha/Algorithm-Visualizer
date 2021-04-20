@@ -152,7 +152,7 @@ table{
 }
 .progress2 {
   border-radius: 30px;
-  background-color: #fff;
+  background-color: gray;
 }
 
 .progress-bar2 {
@@ -177,6 +177,9 @@ table{
     background: #f3c623;
     box-shadow: 0 0 40px #f3c623;
   }
+}
+.progress-text{
+  color: black;
 }
 .progress-text:hover .comment{
   display: block;

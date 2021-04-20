@@ -208,7 +208,7 @@ class ConvexHull extends Component{
                 <img className="card-img-top img-thumbnail" style={{marginBottom:"5px"}} src={instruct_gif} alt="Card image cap"/>
                     <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.hideModal}>Close</button>
                 </Instruct>
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{color:"white"}}>
+                <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{color:"white"}}>
                     <a className="navbar-brand" href="#">ConvexHull Visualizer</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
