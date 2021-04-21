@@ -5,7 +5,9 @@
     /* padding-top: 10px; */
     border-width: 0.5px;
     box-shadow: 5px 8px 4px #888888;
-    font-family: 'Source Sans Pro';
+}
+.card-body{
+    background-color: #ffffff;
 }
 .card1:focus,
 .card1:hover {
@@ -44,4 +46,98 @@
 	bottom:40px;
 	right:40px;
     z-index: 100;
+}
+
+
+.box{
+    width: 100%;
+    height: 100%;            
+    position: absolute;
+    top: 0;
+    left: 0; /* for demo purpose  */
+}
+.stack-top{
+    z-index: 9;
+    margin-top: 50vh; /* for demo purpose  */
+}
+.box.title::before{
+    background-image: url(https://images.unsplash.com/photo-1504610926078-a1611febcad3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80);
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1;
+    content: "";
+    width: 105%;
+    margin: -5px -10px -10px -5px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-position: 50% 50%;
+    -webkit-filter: blur(1px);
+    -moz-filter: blur(1px);
+    -o-filter: blur(1px);
+    -ms-filter: blur(1px);
+    filter: blur(2px);
+    height: 105%;
+}
+.box.title{
+    z-index: 0;
+    height: 60%;
+    overflow: hidden;
+}
+.solid{
+    /* border-bottom: 0.5px solid gray; */
+    z-index: 10;
+    height: 75px;
+}
+.links li{
+    cursor: pointer;
+    margin: 10px;
+    fill: rgba(255,255,255,.85)!important;
+    margin-top: 25px;
+    /* display: inline; */
+}
+.links li svg{
+    height: 20px;
+    width: auto;
+}
+.links{
+    display: flex;
+    list-style: none;
+    vertical-align: top;
+    float: left;
+    cursor: pointer;
+    /* position: absolute; */
+    /* display: flex;
+   flex-direction: row; */
+   /* Below sets up your display method: flex-start|flex-end|space-between|space-around */
+   justify-content: flex-start; 
+   /* Below removes bullets and cleans white-space */
+   list-style: none;
+   padding: 0;
+   /* Bonus: forces no word-wrap */
+   white-space: nowrap;
+}
+.logo{
+    margin-bottom: 20px;
+}
+.logo svg{
+    
+    
+}
+.main-title{
+    font-size: 3rem;
+    color: white;
+}
+.center{
+    margin: 0;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.main-title svg{
+    fill: #5BC9B1;
+    height: 80px;
+    width: auto;
 }
