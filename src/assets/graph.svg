@@ -1,0 +1,53 @@
+<svg fill="#2ED327" width="266pt" height="176pt"
+ viewBox = "0 0 266 176"
+ xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" style="font-family:Times-Roman;font-size:14.00;">
+<title>untitled</title>
+<polygon style="fill:none;stroke:none;" points="-2,178 -2,-2 268,-2 268,178 -2,178"/>
+<g id="node1" class="node"><title>A</title>
+<ellipse style="fill:white;stroke:#2ED327;stroke-width:3;" cx="237" cy="83" rx="24" ry="24"/>
+<text text-anchor="middle" x="237" y="90" style="font-family:Bitstream Vera Sans;font-size:22.00pt;">A</text>
+</g>
+<g id="node2" class="node"><title>B</title>
+<ellipse style="fill:white;stroke:#2ED327;stroke-width:3;" cx="187" cy="135" rx="24" ry="24"/>
+<text text-anchor="middle" x="187" y="142" style="font-family:Bitstream Vera Sans;font-size:22.00pt;">B</text>
+</g>
+<g id="edge5" class="edge"><title>A&#45;&#45;B</title>
+<path style="fill:none;stroke:#2ED327;stroke-width:3;" d="M220,100C215,106 209,112 204,117"/>
+</g>
+<g id="node3" class="node"><title>C</title>
+<ellipse style="fill:white;stroke:#2ED327;stroke-width:3;" cx="109" cy="147" rx="24" ry="24"/>
+<text text-anchor="middle" x="109" y="154" style="font-family:Bitstream Vera Sans;font-size:22.00pt;">C</text>
+</g>
+<g id="edge6" class="edge"><title>B&#45;&#45;C</title>
+<path style="fill:none;stroke:#2ED327;stroke-width:3;" d="M163,139C153,140 142,142 133,143"/>
+</g>
+<g id="node5" class="node"><title>E</title>
+<ellipse style="fill:white;stroke:#2ED327;stroke-width:3;" cx="170" cy="58" rx="24" ry="24"/>
+<text text-anchor="middle" x="170" y="65" style="font-family:Bitstream Vera Sans;font-size:22.00pt;">E</text>
+</g>
+<g id="edge9" class="edge"><title>B&#45;&#45;E</title>
+<path style="fill:none;stroke:#2ED327;stroke-width:3;" d="M182,111C180,102 177,91 175,82"/>
+</g>
+<g id="node4" class="node"><title>D</title>
+<ellipse style="fill:white;stroke:#2ED327;stroke-width:3;" cx="92" cy="70" rx="24" ry="24"/>
+<text text-anchor="middle" x="92" y="77" style="font-family:Bitstream Vera Sans;font-size:22.00pt;">D</text>
+</g>
+<g id="edge7" class="edge"><title>C&#45;&#45;D</title>
+<path style="fill:none;stroke:#2ED327;stroke-width:3;" d="M104,123C102,114 99,103 97,94"/>
+</g>
+<g id="edge3" class="edge"><title>D&#45;&#45;E</title>
+<path style="fill:none;stroke:#2ED327;stroke-width:3;" d="M116,66C126,65 137,63 146,62"/>
+</g>
+<g id="edge4" class="edge"><title>E&#45;&#45;A</title>
+<path style="fill:none;stroke:#2ED327;stroke-width:3;" d="M193,66C200,69 207,72 214,75"/>
+</g>
+<g id="node6" class="node"><title>F</title>
+<ellipse style="fill:white;stroke:#2ED327;stroke-width:3;" cx="29" cy="29" rx="24" ry="24"/>
+<text text-anchor="middle" x="29" y="36" style="font-family:Bitstream Vera Sans;font-size:22.00pt;">F</text>
+</g>
+<g id="edge2" class="edge"><title>F&#45;&#45;D</title>
+<path style="fill:none;stroke:#2ED327;stroke-width:3;" d="M49,42C56,47 65,52 72,57"/>
+</g>
+</g>
+</svg>

@@ -1,35 +1,52 @@
-.card1 {
-    transition: all 150ms ease;
-    border: 1px solid #eeeeee;
-    border-radius: 4px;
-    /* padding-top: 10px; */
-    border-width: 0.5px;
-    box-shadow: 5px 8px 4px #888888;
+@font-face {
+    font-family: Anurati;
+    src: url(../assets/Anurati-Regular.otf);
 }
-.card-body{
-    background-color: #ffffff;
-}
-.card1:focus,
-.card1:hover {
-  border-color: #eeeeee;
-  border-width: 4px;
-  /* box-shadow: 3px 3px 3px #BFBFBF; */
+:root{
+    --home-color: #2ED327;
 }
 .algo-name {
     font-size: 18px;
     font-weight: 700;
-    color:black;
+    color:white;
+}
+.card{
+    background-color: transparent;
+}
+.card::after{
+    content: "";
+    bottom: 0;
+    top: 0;
+  left: 0;
+  position: absolute;
+  height: 50%;
+  width: 5px;
+  color: #fff;
 }
 .algo-image{
     height: 175px;
     width: auto;
-    object-fit:cover; 
-    
+    object-fit:cover;
+    fill: var(--home-color);
+    background-color: transparent;
 }
 .back{
-    height: 100vh;
+    background-color: #0E0E0E;
+    min-height: 100vh;
 }
-
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    background-image: url("");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+    z-index: 0;
+    top:0;
+    left:0;
+  }
 
 .logo{
     /* left: 50%;                         
@@ -38,61 +55,10 @@
     z-index: 100;
     float:top;
 }
-.github-logo{
-    height: 64px;
-    width: auto;
-    cursor: pointer;
-    position:fixed;
-	bottom:40px;
-	right:40px;
-    z-index: 100;
-}
-
-
-.box{
-    width: 100%;
-    height: 100%;            
-    position: absolute;
-    top: 0;
-    left: 0; /* for demo purpose  */
-}
-.stack-top{
-    z-index: 9;
-    margin-top: 50vh; /* for demo purpose  */
-}
-.box.title::before{
-    background-image: url(https://images.unsplash.com/photo-1504610926078-a1611febcad3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80);
-    background-repeat: no-repeat;
-    background-size: cover;
-    z-index: -1;
-    content: "";
-    width: 105%;
-    margin: -5px -10px -10px -5px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background-position: 50% 50%;
-    -webkit-filter: blur(1px);
-    -moz-filter: blur(1px);
-    -o-filter: blur(1px);
-    -ms-filter: blur(1px);
-    filter: blur(2px);
-    height: 105%;
-}
-.box.title{
-    z-index: 0;
-    height: 60%;
-    overflow: hidden;
-}
-.solid{
-    /* border-bottom: 0.5px solid gray; */
-    z-index: 10;
-    height: 75px;
-}
 .links li{
     cursor: pointer;
     margin: 10px;
-    fill: rgba(255,255,255,.85)!important;
+    fill: var(--home-color)!important;
     margin-top: 25px;
     /* display: inline; */
 }
@@ -101,6 +67,8 @@
     width: auto;
 }
 .links{
+    position: sticky;
+    z-index: 100;
     display: flex;
     list-style: none;
     vertical-align: top;
@@ -117,27 +85,22 @@
    /* Bonus: forces no word-wrap */
    white-space: nowrap;
 }
-.logo{
-    margin-bottom: 20px;
-}
-.logo svg{
-    
-    
-}
 .main-title{
     font-size: 3rem;
     color: white;
+    padding-top: 18vh;
+    font-family: Anurati, sans-serif;
+    letter-spacing: 5px;
 }
-.center{
-    margin: 0;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-}
+
 .main-title svg{
-    fill: #5BC9B1;
+    fill: var(--home-color);
+    margin-bottom: 30px;
     height: 80px;
     width: auto;
+}
+.description-title{
+    color: white;
+    width: 50%;
+    margin: auto;
 }
